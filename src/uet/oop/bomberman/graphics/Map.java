@@ -40,15 +40,15 @@ public class Map {
                         entityList.add(new Wall(j, i, Sprite.wall.getFxImage()));
                     } else if (data.charAt(j) == 'p') {
                         posBomber = entityList.size();
-                        entityList.add(new Bomber(j, i, Sprite.player_right.getFxImage()));
+                        entityList.add(new Bomber(j, i, Sprite.player_right.getFxImage(), entityList));
                     } else if (data.charAt(j) == '*') {
                         entityList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                     } else if (data.charAt(j) == 'X') {
                         entityList.add(new Portal(j, i, Sprite.portal.getFxImage()));
                     } else if (data.charAt(j) == '1') {
-                        entityList.add(new Balloon(j, i, Sprite.balloom_right1.getFxImage()));
+                        entityList.add(new Balloon(j, i, Sprite.balloom_right1.getFxImage(), entityList));
                     } else if (data.charAt(j) == '2') {
-                        entityList.add(new Oneal(j ,i, Sprite.oneal_right1.getFxImage()));
+                        entityList.add(new Oneal(j ,i, Sprite.oneal_right1.getFxImage(), entityList));
                     } else if (data.charAt(j) == 'b') {
                         entityList.add(new BombItem(j, i, Sprite.bomb.getFxImage()));
                     } else if (data.charAt(j) == 'f') {

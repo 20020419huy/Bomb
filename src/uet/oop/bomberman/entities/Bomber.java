@@ -1,35 +1,18 @@
 package uet.oop.bomberman.entities;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Circle;
-import javafx.util.Duration;
 import uet.oop.bomberman.graphics.AnimationFrame;
 import uet.oop.bomberman.graphics.Sprite;
-import javafx.animation.*;
-
-import javax.swing.tree.DefaultTreeCellEditor;
-import java.awt.*;
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-public class Bomber extends Entity {
-    private double speed = 1;
+public class Bomber extends DynamicEntity {
+    private double speed = 3;
     private double speedAnimation = 100;
     private boolean isPressed = false;
-    private Timeline timelineRight = null;
     public KeyCode KEY_BOMB = KeyCode.SPACE;
     private AnimationFrame animationFrame;
     private ArrayList<Image> frameRight = new ArrayList<Image>();
@@ -38,8 +21,8 @@ public class Bomber extends Entity {
     private ArrayList<Image> frameUp = new ArrayList<Image>();
     private ArrayList<Image> frameDestroy = new ArrayList<Image>();
     private ArrayList<Image> frames;
-    public Bomber(int x, int y, Image img) {
-        super( x, y, img);
+    public Bomber(int x, int y, Image img, List<Entity> map) {
+        super( x, y, img, map);
         init();
     }
     private void init() {

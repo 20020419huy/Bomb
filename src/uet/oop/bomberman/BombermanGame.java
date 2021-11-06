@@ -10,10 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -48,7 +45,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
 
         // Tao map
-        bomber = (Bomber) stillObjects.get(map.createMap(2));
+        bomber = (Bomber) stillObjects.get(map.createMap(1));
         // Tao scene
         Scene scene = new Scene(root);
 
@@ -61,8 +58,7 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long l) {
                 render();
-//                update();
-                bomber.update();
+                update();
                 bomber.updatePosition(direc);
             }
         };
@@ -83,7 +79,9 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        entities.forEach(Entity::update);
+        for (int i = 0; i < stillObjects.size(); i++) {
+            stillObjects.get(i).update();
+        }
     }
 
     public void render() {

@@ -7,8 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.util.Duration;
 import uet.oop.bomberman.entities.Entity;
 import javafx.scene.image.Image;
-import java.awt.*;
-import java.awt.font.ImageGraphicAttribute;
 import java.util.ArrayList;
 
 public class AnimationFrame {
