@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import uet.oop.bomberman.graphics.AnimationFrame;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.animation.*;
 
@@ -30,10 +31,12 @@ public class Bomber extends Entity {
     private boolean isPressed = false;
     private Timeline timelineRight = null;
     public KeyCode KEY_BOMB = KeyCode.SPACE;
+    private AnimationFrame animationFrame;
     private ArrayList<Image> frameRight = new ArrayList<Image>();
     private ArrayList<Image> frameDown = new ArrayList<Image>();
     private ArrayList<Image> frameLeft = new ArrayList<Image>();
     private ArrayList<Image> frameUp = new ArrayList<Image>();
+    private ArrayList<Image> frameDestroy = new ArrayList<Image>();
     private ArrayList<Image> frames;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
@@ -55,47 +58,17 @@ public class Bomber extends Entity {
         frameLeft.add(Sprite.player_left.getFxImage());
         frameLeft.add(Sprite.player_left_1.getFxImage());
         frameLeft.add(Sprite.player_left_2.getFxImage());
-    }
-    private void loadFrame() {
-        if(status == 1) {
-            frames = frameUp;
-        } else if (status == 2) {
-            frames = frameRight;
-        } else if (status == 3) {
-            frames = frameDown;
-        } else if(status == 4) {
-            frames = frameLeft;
-        }
 
-        if(status != 0) {
-            if(isPressed == false) {
-                isPressed = true;
-                timelineRight = new Timeline(
-                        new KeyFrame(Duration.millis(0), (ActionEvent actionEvent) -> {
-                            img = frames.get(0);
-                        }),
-                        new KeyFrame(Duration.millis(speedAnimation), (ActionEvent actionEvent) -> {
-                            img = frames.get(1);
-                        }),
-                        new KeyFrame(Duration.millis(speedAnimation * 2), (ActionEvent actionEvent) -> {
-                            img = frames.get(2);
-                        })
-                );
-                timelineRight.setCycleCount(Animation.INDEFINITE);
-                timelineRight.play();
-            }
-        } else {
-            if(frames != null) {
-                img = frames.get(0);
-                timelineRight.pause();
-            }
-            isPressed = false;
-        }
+        frameDestroy.add(Sprite.player_dead1.getFxImage());
+        frameDestroy.add(Sprite.player_dead2.getFxImage());
+        frameDestroy.add(Sprite.player_dead3.getFxImage());
+
+        animationFrame = new AnimationFrame(this, speedAnimation, frameUp, frameRight, frameDown, frameLeft, frameDestroy);
     }
 
     @Override
     public void update() {
-        loadFrame();
+        animationFrame.loadFrame(status);
     }
 
     public void updatePosition (KeyCode direc) {
