@@ -21,17 +21,10 @@ public class Map {
     }
 
     public int createMap(int level) {
-        URL url = null;
         File file = null;
         int posBomber = -1;
         Scanner scanner = null;
-        if (level == 1) {
-            url = getClass().getResource(this.map1);
-        } else if(level == 2) {
-            url = getClass().getResource(this.map2);
-        } else {
-            url = getClass().getResource(this.map3);
-        }
+        URL url = getClass().getResource("/levels/Level" + Integer.toString(level) + ".txt");
         file = new File(url.getFile());
         try {
             scanner = new Scanner(file);

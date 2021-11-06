@@ -48,7 +48,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
 
         // Tao map
-        bomber = (Bomber) stillObjects.get(map.createMap(1));
+        bomber = (Bomber) stillObjects.get(map.createMap(2));
         // Tao scene
         Scene scene = new Scene(root);
 
@@ -61,7 +61,8 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long l) {
                 render();
-                update();
+//                update();
+                bomber.update();
                 bomber.updatePosition(direc);
             }
         };
@@ -82,9 +83,7 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).update();
-        }
+        entities.forEach(Entity::update);
     }
 
     public void render() {
