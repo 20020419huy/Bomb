@@ -21,7 +21,7 @@ public class DynamicEntity extends Entity{
     protected int checkCollision() {
         if(this instanceof Bomber) {
             System.out.println("x: " + this.x);
-            System.out.println("y: " + this.x);
+            System.out.println("y: " + this.y);
             System.out.println("width: " + this.sprite._realWidth);
             System.out.println("height: " + this.sprite._realHeight);
         }
