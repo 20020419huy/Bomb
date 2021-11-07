@@ -1,8 +1,5 @@
 package uet.oop.bomberman.entities;
 
-import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.graphics.AnimationFrame;
 import uet.oop.bomberman.graphics.Sprite;
@@ -10,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends DynamicEntity {
-    private double speed = 3;
+    private double speed = 2;
     private double speedAnimation = 100;
     private boolean isPressed = false;
+    private int oldPosX;
+    private int oldPosY;
     public KeyCode KEY_BOMB = KeyCode.SPACE;
     private AnimationFrame animationFrame;
     private ArrayList<Sprite> frameRight = new ArrayList<Sprite>();
@@ -23,6 +22,8 @@ public class Bomber extends DynamicEntity {
     private ArrayList<Sprite> frames;
     public Bomber(int x, int y, Sprite sprite, List<Entity> map) {
         super( x, y, sprite, map);
+        oldPosX = x;
+        oldPosY = y;
         init();
     }
     private void init() {
@@ -55,24 +56,35 @@ public class Bomber extends DynamicEntity {
     }
 
     public void updatePosition (KeyCode direc) {
-        checkCollision();
+        boolean collision = false;
+        oldPosY = y;
+        oldPosX = x;
         if(direc == KeyCode.UP) {
-            y -= speed;
+            y -=  speed;
             status = 1;
         } else if(direc == KeyCode.RIGHT) {
-            x += speed;
+            x +=  speed;
             status = 2;
         } else if(direc == KeyCode.DOWN) {
-            y += speed;
+            y +=  speed;
             status = 3;
         } else if(direc == KeyCode.LEFT) {
-            x -= speed;
+            x -=  speed;
             status = 4;
         }  else if (direc == KeyCode.SPACE) {
 
         } else if(direc == null) {
             status = 0;
         }
+        if(checkCollision() != -1) {
+            System.out.println(x);
+            System.out.println(y);
+            x = oldPosX;
+            y  = oldPosY;
+            System.out.println(x);
+            System.out.println(y);
+        }
+
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Alien extends DynamicEntity {
-    protected double speed = 1;
+    protected double speed = 2;
     public Alien(int xUnit, int yUnit, Sprite sprite, List<Entity> map) {
         super(xUnit, yUnit, sprite, map);
     }
@@ -23,7 +23,7 @@ public class Alien extends DynamicEntity {
             status = (int) (Math.random() * (4 - 1 + 1) + 1);
         }
         move(1);
-        if(checkCollision() == 0) {
+        if(checkCollision() != -1) {
             move(-1);
             int tempStatus = status;
             while (true) {
