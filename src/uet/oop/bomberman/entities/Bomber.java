@@ -15,36 +15,36 @@ public class Bomber extends DynamicEntity {
     private boolean isPressed = false;
     public KeyCode KEY_BOMB = KeyCode.SPACE;
     private AnimationFrame animationFrame;
-    private ArrayList<Image> frameRight = new ArrayList<Image>();
-    private ArrayList<Image> frameDown = new ArrayList<Image>();
-    private ArrayList<Image> frameLeft = new ArrayList<Image>();
-    private ArrayList<Image> frameUp = new ArrayList<Image>();
-    private ArrayList<Image> frameDestroy = new ArrayList<Image>();
-    private ArrayList<Image> frames;
-    public Bomber(int x, int y, Image img, List<Entity> map) {
-        super( x, y, img, map);
+    private ArrayList<Sprite> frameRight = new ArrayList<Sprite>();
+    private ArrayList<Sprite> frameDown = new ArrayList<Sprite>();
+    private ArrayList<Sprite> frameLeft = new ArrayList<Sprite>();
+    private ArrayList<Sprite> frameUp = new ArrayList<Sprite>();
+    private ArrayList<Sprite> frameDestroy = new ArrayList<Sprite>();
+    private ArrayList<Sprite> frames;
+    public Bomber(int x, int y, Sprite sprite, List<Entity> map) {
+        super( x, y, sprite, map);
         init();
     }
     private void init() {
-        frameUp.add(Sprite.player_up.getFxImage());
-        frameUp.add(Sprite.player_up_1.getFxImage());
-        frameUp.add(Sprite.player_up_2.getFxImage());
+        frameUp.add(Sprite.player_up);
+        frameUp.add(Sprite.player_up_1);
+        frameUp.add(Sprite.player_up_2);
 
-        frameRight.add(Sprite.player_right.getFxImage());
-        frameRight.add(Sprite.player_right_1.getFxImage());
-        frameRight.add(Sprite.player_right_2.getFxImage());
+        frameRight.add(Sprite.player_right);
+        frameRight.add(Sprite.player_right_1);
+        frameRight.add(Sprite.player_right_2);
 
-        frameDown.add(Sprite.player_down.getFxImage());
-        frameDown.add(Sprite.player_down_1.getFxImage());
-        frameDown.add(Sprite.player_down_2.getFxImage());
+        frameDown.add(Sprite.player_down);
+        frameDown.add(Sprite.player_down_1);
+        frameDown.add(Sprite.player_down_2);
 
-        frameLeft.add(Sprite.player_left.getFxImage());
-        frameLeft.add(Sprite.player_left_1.getFxImage());
-        frameLeft.add(Sprite.player_left_2.getFxImage());
+        frameLeft.add(Sprite.player_left);
+        frameLeft.add(Sprite.player_left_1);
+        frameLeft.add(Sprite.player_left_2);
 
-        frameDestroy.add(Sprite.player_dead1.getFxImage());
-        frameDestroy.add(Sprite.player_dead2.getFxImage());
-        frameDestroy.add(Sprite.player_dead3.getFxImage());
+        frameDestroy.add(Sprite.player_dead1);
+        frameDestroy.add(Sprite.player_dead2);
+        frameDestroy.add(Sprite.player_dead3);
 
         animationFrame = new AnimationFrame(this, speedAnimation, frameUp, frameRight, frameDown, frameLeft, frameDestroy);
     }
@@ -55,6 +55,7 @@ public class Bomber extends DynamicEntity {
     }
 
     public void updatePosition (KeyCode direc) {
+        checkCollision();
         if(direc == KeyCode.UP) {
             y -= speed;
             status = 1;

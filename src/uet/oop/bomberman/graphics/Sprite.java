@@ -16,8 +16,9 @@ public class Sprite {
 	public final int SIZE;
 	private int _x, _y;
 	public int[] _pixels;
-	protected int _realWidth;
-	protected int _realHeight;
+	public int _realWidth;
+	public int _realHeight;
+	public Image _realImage;
 	private SpriteSheet _sheet;
 
 	/*
@@ -191,9 +192,10 @@ public class Sprite {
 		_x = x * SIZE;
 		_y = y * SIZE;
 		_sheet = sheet;
-		_realWidth = rw;
-		_realHeight = rh;
+		_realWidth = rw * 2;
+		_realHeight = rh * 2;
 		load();
+		_realImage = this.getFxImage();
 	}
 	
 	public Sprite(int size, int color) {

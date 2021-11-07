@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -8,8 +9,8 @@ import java.util.List;
 
 public class Alien extends DynamicEntity {
     protected double speed = 1;
-    public Alien(int xUnit, int yUnit, Image img, List<Entity> map) {
-        super(xUnit, yUnit, img, map);
+    public Alien(int xUnit, int yUnit, Sprite sprite, List<Entity> map) {
+        super(xUnit, yUnit, sprite, map);
     }
 
     @Override

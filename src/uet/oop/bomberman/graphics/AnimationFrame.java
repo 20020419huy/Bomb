@@ -14,14 +14,14 @@ public class AnimationFrame {
     private Timeline timeline = null;
     private Entity entity = null;
     private double time;
-    private ArrayList<Image> frames;
-    private ArrayList<Image> framesUp;
-    private ArrayList<Image> framesRight;
-    private ArrayList<Image> framesDown;
-    private ArrayList<Image> framesLeft;
-    private ArrayList<Image> frameDestroy;
+    private ArrayList<Sprite> frames;
+    private ArrayList<Sprite> framesUp;
+    private ArrayList<Sprite> framesRight;
+    private ArrayList<Sprite> framesDown;
+    private ArrayList<Sprite> framesLeft;
+    private ArrayList<Sprite> frameDestroy;
 
-    public AnimationFrame(Entity entity, double time, ArrayList<Image> framesUp, ArrayList<Image> framesRight, ArrayList<Image> framesDown, ArrayList<Image> framesLeft, ArrayList<Image> frameDestroy) {
+    public AnimationFrame(Entity entity, double time, ArrayList<Sprite> framesUp, ArrayList<Sprite> framesRight, ArrayList<Sprite> framesDown, ArrayList<Sprite> framesLeft, ArrayList<Sprite> frameDestroy) {
         this.entity = entity;
         this.time = time;
         this.framesUp = framesUp;
@@ -32,7 +32,7 @@ public class AnimationFrame {
 
     }
 
-    public AnimationFrame(Entity entity, int time ,ArrayList<Image> framesDestroy) {
+    public AnimationFrame(Entity entity, int time ,ArrayList<Sprite> framesDestroy) {
         this.entity = entity;
         this.time = time;
         this.framesUp = framesDestroy;
@@ -56,13 +56,13 @@ public class AnimationFrame {
                 isPressed = true;
                 timeline = new Timeline(
                         new KeyFrame(Duration.millis(0), (ActionEvent actionEvent) -> {
-                            entity.img = frames.get(0);
+                            entity.sprite = frames.get(0);
                         }),
                         new KeyFrame(Duration.millis(time), (ActionEvent actionEvent) -> {
-                            entity.img = frames.get(1);
+                            entity.sprite = frames.get(1);
                         }),
                         new KeyFrame(Duration.millis(time * 2), (ActionEvent actionEvent) -> {
-                            entity.img = frames.get(2);
+                            entity.sprite = frames.get(2);
                         })
                 );
                 timeline.setCycleCount(Animation.INDEFINITE);
@@ -70,7 +70,7 @@ public class AnimationFrame {
             }
         } else {
             if(frames != null) {
-                entity.img = frames.get(0);
+                entity.sprite = frames.get(0);
                 timeline.pause();
             }
             isPressed = false;

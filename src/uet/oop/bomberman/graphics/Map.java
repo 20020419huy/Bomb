@@ -30,31 +30,31 @@ public class Map {
             scanner = new Scanner(file);
             for (int i = 0; i < HEIGHT; i++) {
                 for (int j = 0; j < WIDTH; j++) {
-                    entityList.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                    entityList.add(new Grass(j, i, Sprite.grass));
                 }
             }
             for (int i = 0; i < HEIGHT; i++) {
                 String data = scanner.nextLine();
                 for (int j = 0; j < WIDTH; j++) {
                     if(data.charAt(j) == '#') {
-                        entityList.add(new Wall(j, i, Sprite.wall.getFxImage()));
+                        entityList.add(new Wall(j, i, Sprite.wall));
                     } else if (data.charAt(j) == 'p') {
                         posBomber = entityList.size();
-                        entityList.add(new Bomber(j, i, Sprite.player_right.getFxImage(), entityList));
+                        entityList.add(new Bomber(j, i, Sprite.player_right, entityList));
                     } else if (data.charAt(j) == '*') {
-                        entityList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        entityList.add(new Brick(j, i, Sprite.brick));
                     } else if (data.charAt(j) == 'X') {
-                        entityList.add(new Portal(j, i, Sprite.portal.getFxImage()));
+                        entityList.add(new Portal(j, i, Sprite.portal));
                     } else if (data.charAt(j) == '1') {
-                        entityList.add(new Balloon(j, i, Sprite.balloom_right1.getFxImage(), entityList));
+                        entityList.add(new Balloon(j, i, Sprite.balloom_right1, entityList));
                     } else if (data.charAt(j) == '2') {
-                        entityList.add(new Oneal(j ,i, Sprite.oneal_right1.getFxImage(), entityList));
+                        entityList.add(new Oneal(j ,i, Sprite.oneal_right1, entityList));
                     } else if (data.charAt(j) == 'b') {
-                        entityList.add(new BombItem(j, i, Sprite.bomb.getFxImage()));
+                        entityList.add(new BombItem(j, i, Sprite.bomb));
                     } else if (data.charAt(j) == 'f') {
-                        entityList.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+                        entityList.add(new FlameItem(j, i, Sprite.powerup_flames));
                     } else if(data.charAt(j) == 's') {
-                        entityList.add(new SpeedItem(j, j, Sprite.powerup_speed.getFxImage()));
+                        entityList.add(new SpeedItem(j, j, Sprite.powerup_speed));
                     }
                 }
             }
