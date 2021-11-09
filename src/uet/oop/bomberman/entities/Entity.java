@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.entities.SubClass.Constant;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Entity {
@@ -15,7 +16,7 @@ public abstract class Entity {
     //Tọa độ Y tính từ góc trái trên trong Canvas
     public int y;
 
-    protected int status;
+    public int status;
 
     public Sprite sprite;
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
@@ -23,7 +24,7 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.sprite = sprite;
-        this.status = 0;
+        this.status = Constant.STATUS_STAND;
     }
 
     public void render(GraphicsContext gc) {

@@ -9,25 +9,20 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.SubClass.Constant;
 import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
-    private Map map = new Map(stillObjects);
+    public static List<Entity> stillObjects = new ArrayList<>();
+    private Map map = new Map();
     private Bomber bomber = null;
     private KeyCode direc = null;
     public static void main(String[] args) {
@@ -37,7 +32,7 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) {
         // Tao Canvas
-        canvas = new Canvas(Sprite.SCALED_SIZE * Map.WIDTH, Sprite.SCALED_SIZE * Map.HEIGHT);
+        canvas = new Canvas(Sprite.SCALED_SIZE * Constant.WIDTH, Sprite.SCALED_SIZE * Constant.HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
@@ -67,14 +62,16 @@ public class BombermanGame extends Application {
 
     public void move(Scene scene) {
         scene.setOnKeyPressed((KeyEvent e) -> {
-            if(e.getCode() != bomber.KEY_BOMB) {
+            if(e.getCode() != Bomber.KEY_BOMB) {
                 direc = e.getCode();
             }
         });
         scene.setOnKeyReleased((KeyEvent e) -> {
-           if(e.getCode() != bomber.KEY_BOMB) {
-               direc = null;
-           }
+            if(e.getCode() != Bomber.KEY_BOMB) {
+                direc = null;
+            } else {
+                direc = e.getCode();
+            }
         });
     }
 

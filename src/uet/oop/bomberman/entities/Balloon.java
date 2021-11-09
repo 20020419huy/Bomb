@@ -4,6 +4,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import uet.oop.bomberman.entities.SubClass.Constant;
 import uet.oop.bomberman.graphics.AnimationFrame;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -19,8 +20,8 @@ public class Balloon extends Alien{
     private ArrayList<Sprite> frameUp = new ArrayList<Sprite>();
     private ArrayList<Sprite> frameDestroy = new ArrayList<Sprite>();
 
-    public Balloon(int xUnit, int yUnit,Sprite sprite, List<Entity> map) {
-        super(xUnit, yUnit, sprite, map);
+    public Balloon(int xUnit, int yUnit,Sprite sprite) {
+        super(xUnit, yUnit, sprite);
         init();
     }
 
@@ -50,7 +51,9 @@ public class Balloon extends Alien{
 
     @Override
     public void update() {
-        autoMove();
-        animationFrame.loadFrame(status);
+        if(status != Constant.STATUS_DESTROYED) {
+            autoMove();
+            animationFrame.loadFrame();
+        }
     }
 }

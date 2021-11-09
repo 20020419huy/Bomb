@@ -1,27 +1,32 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.input.KeyCode;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.SubClass.Constant;
 import uet.oop.bomberman.graphics.AnimationFrame;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Bomber extends DynamicEntity {
     private double speed = 2;
+    private int power_up = Constant.POWER_UP_1;
     private double speedAnimation = 100;
-    private boolean isPressed = false;
     private int oldPosX;
     private int oldPosY;
-    public KeyCode KEY_BOMB = KeyCode.SPACE;
+    private int sumBomb = 0;
+    private final int MAX_BOMB = 1;
+    public static KeyCode KEY_BOMB = KeyCode.SPACE;
     private AnimationFrame animationFrame;
     private ArrayList<Sprite> frameRight = new ArrayList<Sprite>();
     private ArrayList<Sprite> frameDown = new ArrayList<Sprite>();
     private ArrayList<Sprite> frameLeft = new ArrayList<Sprite>();
     private ArrayList<Sprite> frameUp = new ArrayList<Sprite>();
     private ArrayList<Sprite> frameDestroy = new ArrayList<Sprite>();
-    private ArrayList<Sprite> frames;
-    public Bomber(int x, int y, Sprite sprite, List<Entity> map) {
-        super( x, y, sprite, map);
+    public Bomber(int x, int y, Sprite sprite) {
+        super( x, y, sprite);
         oldPosX = x;
         oldPosY = y;
         init();
@@ -52,39 +57,49 @@ public class Bomber extends DynamicEntity {
 
     @Override
     public void update() {
-        animationFrame.loadFrame(status);
+        animationFrame.loadFrame();
     }
 
     public void updatePosition (KeyCode direc) {
-        boolean collision = false;
         oldPosY = y;
         oldPosX = x;
         if(direc == KeyCode.UP) {
             y -=  speed;
-            status = 1;
+            status = Constant.STATUS_UP;
         } else if(direc == KeyCode.RIGHT) {
             x +=  speed;
-            status = 2;
+            status = Constant.STATUS_RIGHT;
         } else if(direc == KeyCode.DOWN) {
             y +=  speed;
-            status = 3;
+            status = Constant.STATUS_DOWN;
         } else if(direc == KeyCode.LEFT) {
             x -=  speed;
-            status = 4;
-        }  else if (direc == KeyCode.SPACE) {
-
+            status = Constant.STATUS_LEFT;
+        }  else if(direc == KEY_BOMB) {
+            setBomb();
         } else if(direc == null) {
-            status = 0;
+            status = Constant.STATUS_STAND;
         }
-        if(checkCollision() != -1) {
-            System.out.println(x);
-            System.out.println(y);
+        int collision = checkCollision();
+        if(collision != Constant.NO_COLLISION) {
+            if(collision == Constant.COLLISION_WITH_ALIEN || collision == Constant.COLLISION_WITH_FLAME)
+                status = Constant.STATUS_DESTROY;
             x = oldPosX;
             y  = oldPosY;
-            System.out.println(x);
-            System.out.println(y);
         }
 
+    }
+
+    private void setBomb() {
+        int currentBomb = 0;
+        for(int i = 0; i < BombermanGame.stillObjects.size(); i++) {
+            if(BombermanGame.stillObjects.get(i) instanceof  Bomb && BombermanGame.stillObjects.get(i).status != Constant.STATUS_DESTROYED) {
+               currentBomb++;
+            }
+        }
+        if(currentBomb < MAX_BOMB) {
+            Bomb bomb = new Bomb((x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE, (y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE, Sprite.bomb, Constant.POWER_UP_MAX);
+        }
     }
 
 }

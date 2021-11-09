@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.SubClass.Constant;
 import uet.oop.bomberman.graphics.AnimationFrame;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -17,8 +18,8 @@ public class Oneal extends Alien {
     private ArrayList<Sprite> frameUp = new ArrayList<Sprite>();
     private ArrayList<Sprite> frameDestroy = new ArrayList<Sprite>();
 
-    public Oneal(int xUnit, int yUnit, Sprite sprite, List<Entity> map) {
-        super(xUnit, yUnit, sprite, map);
+    public Oneal(int xUnit, int yUnit, Sprite sprite) {
+        super(xUnit, yUnit, sprite);
         init();
     }
 
@@ -43,12 +44,14 @@ public class Oneal extends Alien {
         frameDestroy.add(Sprite.oneal_dead);
         frameDestroy.add(Sprite.oneal_dead);
 
-        animationFrame = new AnimationFrame(this,seepAnimation, frameUp, frameRight, frameDown, frameLeft, frameDestroy);
+        animationFrame = new AnimationFrame(this, seepAnimation, frameUp, frameRight, frameDown, frameLeft, frameDestroy);
     }
 
     @Override
     public void update() {
-        autoMove();
-        animationFrame.loadFrame(status);
+        if(status != Constant.STATUS_DESTROYED) {
+            autoMove();
+            animationFrame.loadFrame();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.SubClass.Constant;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.AbstractList;
@@ -9,8 +10,10 @@ import java.util.List;
 
 public class Alien extends DynamicEntity {
     protected double speed = 2;
-    public Alien(int xUnit, int yUnit, Sprite sprite, List<Entity> map) {
-        super(xUnit, yUnit, sprite, map);
+    private final int MOVE_NO_COLLISION = 1;
+    private final int MOVE_WITH_COLLISION = -1;
+    public Alien(int xUnit, int yUnit, Sprite sprite) {
+        super(xUnit, yUnit, sprite);
     }
 
     @Override
@@ -18,16 +21,20 @@ public class Alien extends DynamicEntity {
 
     }
 
+   private int randomDirection() {
+       return (int) (Math.random() * (Constant.STATUS_LEFT - Constant.STATUS_UP + 1) + Constant.STATUS_UP);
+   }
+
     protected void autoMove() {
-        if(status == 0) {
-            status = (int) (Math.random() * (4 - 1 + 1) + 1);
+        if(status == Constant.STATUS_STAND) {
+            status = randomDirection();
         }
-        move(1);
-        if(checkCollision() != -1) {
-            move(-1);
+        move(MOVE_NO_COLLISION);
+        if(checkCollision() != Constant.NO_COLLISION) {
+            move(MOVE_WITH_COLLISION);
             int tempStatus = status;
             while (true) {
-                tempStatus = (int) (Math.random() * (4 - 1 + 1) + 1);
+                tempStatus = randomDirection();
                 if(tempStatus != status) {
                     break;
                 }
@@ -38,13 +45,13 @@ public class Alien extends DynamicEntity {
     }
 
     private void move(int type) {
-        if(status == 1) {
+        if(status == Constant.STATUS_UP) {
             y -= type * speed;
-        } else if(status == 2) {
+        } else if(status == Constant.STATUS_RIGHT) {
             x += type * speed;
-        } else if(status == 3) {
+        } else if(status == Constant.STATUS_DOWN) {
             y += type * speed;
-        } else if (status == 4) {
+        } else if (status == Constant.STATUS_LEFT) {
             x -= type * speed;
         }
     }

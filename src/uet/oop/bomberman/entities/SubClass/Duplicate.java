@@ -41,6 +41,9 @@ public class Duplicate {
 //    }
 
     public static boolean collision(Entity bomber, Entity entity) {
+        if(entity.status == Constant.STATUS_DESTROYED) {
+            return false;
+        }
         double rightBomber = bomber.x + bomber.sprite._realWidth;
         double leftBomber = bomber.x;
         double aboveBomber = bomber.y;
